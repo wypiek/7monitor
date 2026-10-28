@@ -1,0 +1,3 @@
+set(CMAKE_SYSTEM_PROCESSOR x86)
+set(SEVENMON_MINGW_TRIPLE i686-w64-mingw32)
+include(${CMAKE_CURRENT_LIST_DIR}/mingw-common.cmake)
