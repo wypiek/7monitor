@@ -44,7 +44,10 @@ void meter(Canvas& c, const Theme& t, int x, int y, int w, const std::string& la
   if (remaining <= 8) return;
   int suffixW = static_cast<int>(displayWidth(suffix));
   int barW = std::min(30, remaining - 7 - (suffix.empty() ? 0 : suffixW + 2));
-  if (barW < 5) barW = std::min(30, remaining - 7), suffixW = -1;
+  if (barW < 5) {  // not enough room for the suffix: drop it
+    barW = std::min(30, remaining - 7);
+    suffixW = -1;
+  }
   if (barW < 3) {
     c.text(pos, y, pctText(pct), pct ? levelAttr(t, *pct) : t.dim, remaining);
     return;

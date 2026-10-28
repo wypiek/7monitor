@@ -53,6 +53,8 @@ TEST(cli_command_specific_validation) {
   CHECK(P({"watch", "--duration", "10"}).ok);
   CHECK(!P({"export", "--count", "3", "--duration", "2"}).ok);
   CHECK(!P({"cpu", "--sort", "cpu"}).ok);
+  CHECK(!P({"watch", "--top", "5"}).ok);
+  CHECK(P({"watch", "--sort", "memory", "--filter", "svc"}).ok);
   CHECK(!P({"--append"}).ok);
   CHECK(P({"export", "--append", "--output", "x.csv"}).ok);
   CHECK(!P({"watch", "--output", "x.txt"}).ok);

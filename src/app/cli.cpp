@@ -139,8 +139,9 @@ ParseResult parseCli(const std::vector<std::string>& args) {
     return fail("--count and --duration are only valid with 'watch' and 'export'");
   if (o.count && o.durationSec) return fail("use either --count or --duration, not both");
   if (o.append && o.output.empty()) return fail("--append requires --output");
-  if ((o.sortGiven || o.top || !o.filter.empty()) && c != "processes" && c != "watch")
-    return fail("--sort, --top and --filter are only valid with 'processes' and 'watch'");
+  if ((o.sortGiven || !o.filter.empty()) && c != "processes" && c != "watch")
+    return fail("--sort and --filter are only valid with 'processes' and 'watch'");
+  if (o.top && c != "processes") return fail("--top is only valid with 'processes'");
   if (c == "watch" && !o.output.empty() && o.format == Format::Text)
     return fail("'watch --output' needs --json or --csv (use 'export' for files)");
   r.ok = true;
@@ -180,7 +181,7 @@ std::string usageText() {
       "  --count <n>        Number of samples (watch, export)\r\n"
       "  --duration <s>     Sampling duration in seconds (watch, export)\r\n"
       "  --sort <key>       cpu | memory | pid | name (processes, watch)\r\n"
-      "  --top <n>          Show only the first n processes\r\n"
+      "  --top <n>          Show only the first n processes (processes)\r\n"
       "  --filter <text>    Only processes whose name contains text\r\n"
       "  --output <path>    Write output to a file (export: file or directory)\r\n"
       "  --append           Append to the --output file instead of replacing it\r\n"

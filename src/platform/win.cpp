@@ -1,5 +1,7 @@
 #include "platform/win.h"
 
+#include <cstring>
+
 #include "util/strings.h"
 
 namespace sm {
